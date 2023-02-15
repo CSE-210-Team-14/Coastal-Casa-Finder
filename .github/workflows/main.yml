@@ -27,6 +27,6 @@ jobs:
       with:
         image: coastal_casa_finder/backend
         tags: v1, latest
-        registry: registry-url.io
+        registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
