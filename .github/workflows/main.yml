@@ -26,8 +26,7 @@ jobs:
         args: install
 
     - name: Build and Push Docker image to Docker hub
-    - uses: mr-smithers-excellent/docker-build-push@v5
-      name: Build & push Docker image
+      uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: coastal_casa_finder/backend
         tags: v1, latest
