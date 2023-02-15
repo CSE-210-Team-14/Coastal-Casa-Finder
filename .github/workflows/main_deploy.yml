@@ -29,3 +29,12 @@ jobs:
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: SSH to AWS
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.AWS_USERNAME }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        script: |
+          echo "Connected to server successfully"
