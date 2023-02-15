@@ -19,11 +19,7 @@ jobs:
         java-version: 8
 
     - name: Build with Maven
-      uses: docker://maven:3-jdk-8
-      env:
-        MAVEN_OPTS: "-Dmaven.repo.local=$MAVEN_USER_HOME/repository"
-      with:
-        args: install
+      run: mvn --batch-mode --update-snapshots package
 
     - name: Build and Push Docker image to Docker hub
       uses: mr-smithers-excellent/docker-build-push@v5
