@@ -1,5 +1,8 @@
 name: main_deploy
 
+env:
+  REPO: coastal_casa_finder
+
 on:
   push:
     branches:
@@ -7,9 +10,6 @@ on:
 
 jobs:
   build:
-  env:
-    REPO: coastal_casa_finder
-
     runs-on: ubuntu-latest
 
     steps:
