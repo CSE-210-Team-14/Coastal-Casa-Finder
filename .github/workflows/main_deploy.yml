@@ -1,7 +1,5 @@
 name: main_deploy
 
-env:
-  REPO: coastal_casa_finder
 
 on:
   push:
@@ -11,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      repo: coastal_casa_finder
 
     steps:
     - name: Checkout code
@@ -41,9 +42,10 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }}
         script: |
           echo "Connected to server successfully"
+          echo "$repo"
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker pull ${{ secrets.DOCKER_USERNAME }}/{{env.REPO}}
-          docker stop {{env.REPO}}
-          docker rm {{env.REPO}}
-          docker run -d -p 8080:8080 --name {{env.REPO}} ${{ secrets.DOCKER_USERNAME }}/{{env.REPO}}
+          docker pull ${{ secrets.DOCKER_USERNAME }}/$repo
+          docker stop $repo
+          docker rm $repo
+          docker run -d -p 8080:8080 --name $repo ${{ secrets.DOCKER_USERNAME }}/$repo
           echo "All commands are done"
