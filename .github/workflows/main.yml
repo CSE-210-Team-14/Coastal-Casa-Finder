@@ -1,0 +1,36 @@
+name: CI/CD
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 8
+
+    - name: Build with Maven
+      uses: docker://maven:3-jdk-8
+      env:
+        MAVEN_OPTS: "-Dmaven.repo.local=$MAVEN_USER_HOME/repository"
+      with:
+        args: install
+
+    - name: Build and Push Docker image to Docker hub
+    - uses: mr-smithers-excellent/docker-build-push@v5
+      name: Build & push Docker image
+      with:
+        image: coastal_casa_finder/backend
+        tags: v1, latest
+        registry: registry-url.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
