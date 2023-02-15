@@ -1,10 +1,9 @@
-name: main
+name: main_deploy
 
 on:
   push:
     branches:
       - main
-  pull_request:
 
 jobs:
   build:
@@ -26,7 +25,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: zguan0101/coastal_casa_finder
-        tags: v1, latest
+        tags: latest
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
