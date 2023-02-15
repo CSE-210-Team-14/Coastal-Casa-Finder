@@ -42,8 +42,8 @@ jobs:
         script: |
           echo "Connected to server successfully"
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker pull ${{ secrets.DOCKER_USERNAME }}/$REPO
-          docker stop $REPO
-          docker rm $REPO
-          docker run -d -p 8080:8080 --name $REPO ${{ secrets.DOCKER_USERNAME }}/$REPO
+          docker pull ${{ secrets.DOCKER_USERNAME }}/{{env.REPO}}
+          docker stop {{env.REPO}}
+          docker rm {{env.REPO}}
+          docker run -d -p 8080:8080 --name {{env.REPO}} ${{ secrets.DOCKER_USERNAME }}/{{env.REPO}}
           echo "All commands are done"
