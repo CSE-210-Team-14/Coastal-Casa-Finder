@@ -27,4 +27,10 @@ public class APIController {
 		return landlordMapper.findAll();
 	}
 
+	@PostMapping("/landlordsignup")
+	private void createLandLord(@RequestBody Landlord landlord){
+		landlordMapper.insert(landlord);
+	}
+	
+
 }
