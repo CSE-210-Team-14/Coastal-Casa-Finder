@@ -1,35 +1,30 @@
 package com0.coastalcasa.Controllers;
 
-import java.util.*;
+import java.util.List;
 
-import com0.coastalcasa.Models.Landlord;
-import com0.coastalcasa.Repo.LandlordRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 
+import com0.coastalcasa.Mapper.LandlordMapper;
+import com0.coastalcasa.Models.Landlord;
 
 @RestController
 public class APIController {
+
+	private LandlordMapper landlordMapper;
+
+	public APIController(LandlordMapper llm){
+		this.landlordMapper = llm;
+	}
 
 	@GetMapping("/")
 	public String index() {
 		return "Coastal Casa Finder";
 	}
 
-	@Autowired
-	private LandlordRepo landlordRepo;
-
-	
-
-	@GetMapping("/landlordSignUp")
-	public String landlordSignUp() {
-		return "Sign Up";
+	@GetMapping("/all")
+	public List<Landlord> getAll(){
+		return landlordMapper.findAll();
 	}
-
-	@GetMapping("/landlords")
-	public List<Landlord> landlords() {
-		return landlordRepo.findAll();
-	}
-
 
 }
