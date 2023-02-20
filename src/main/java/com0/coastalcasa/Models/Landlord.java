@@ -1,7 +1,6 @@
 package com0.coastalcasa.Models;
 
 
-
 public class Landlord{
 
     private long id;

@@ -22,7 +22,7 @@ public class APIController {
 		return "Coastal Casa Finder";
 	}
 
-	@GetMapping("/all")
+	@GetMapping("/alllandlords")
 	public List<Landlord> getAll(){
 		return landlordMapper.findAll();
 	}
