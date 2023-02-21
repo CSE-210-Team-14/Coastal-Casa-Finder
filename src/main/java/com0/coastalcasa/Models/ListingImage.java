@@ -1,26 +1,28 @@
 package com0.coastalcasa.Models;
 
+
 public class ListingImage {
-    private Long id;
-    public Long getId() {
+    private int id;
+    private int listing_id;
+    private byte[] image_data;
+    public int getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
-    private byte[] data;
-    public byte[] getData() {
-        return data;
+    public int getListing_id() {
+        return listing_id;
     }
-    public void setData(byte[] data) {
-        this.data = data;
+    public void setListing_id(int listing_id) {
+        this.listing_id = listing_id;
     }
-    private int listingID;
-    public int getListingID() {
-        return listingID;
+    public byte[] getImage_data() {
+        return image_data;
     }
-    public void setListingID(int listingID) {
-        this.listingID = listingID;
+    public void setImage_data(byte[] data) {
+        this.image_data = data;
     }
 
+    // Constructors, getters, and setters
 }

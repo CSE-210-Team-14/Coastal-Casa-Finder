@@ -13,18 +13,19 @@ import com0.coastalcasa.Models.Listing;
 @Mapper
 public interface ListingMapper {
 
-    @Select("SELECT * FROM listings")
-    List<Listing> getAll();
+    @Select("SELECT * FROM listing")
+    List<Listing> findAll();
 
-    @Select("SELECT * FROM listings WHERE id = #{id}")
-    Listing getById(@Param("id") Long id);
-
-    @Select("SELECT * FROM listings WHERE email = #{email}")
-    Listing getByEmail(@Param("email") String email);
-
-    @Insert("INSERT INTO house_listings(title, description, price) VALUES (#{title}, #{description}, #{price})")
+    @Select("SELECT * FROM listing WHERE id = #{id}")
+    Listing findById(Integer id);
+    
+    @Select("SELECT * FROM listing WHERE landlord_email = #{landlordEmail}")
+    List<Listing> findByLandlordEmail(String landlordEmail);
+    
+    @Insert("INSERT INTO listing(landlord_email, description, location, price, num_bathrooms, num_bedrooms, amenities) " +
+            "VALUES (#{landlordEmail}, #{description}, #{location}, #{price}, #{numBathrooms}, #{numBedrooms}, #{amenities})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    void insert(Listing houseListing);
+    int insert(Listing listing);
     
     
 }

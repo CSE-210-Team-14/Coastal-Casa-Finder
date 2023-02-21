@@ -11,10 +11,10 @@ DROP TABLE IF EXISTS listing;
 DROP TABLE IF EXISTS landlord;
 
 -- Create the database
-CREATE DATABASE IF NOT EXISTS team14;
+CREATE DATABASE IF NOT EXISTS CoastalCasaFinder;
 
 -- Use the database
-USE team14;
+USE CoastalCasaFinder;
 
 -- Create the landlord table
 CREATE TABLE IF NOT EXISTS landlord (

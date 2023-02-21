@@ -12,7 +12,7 @@ import com0.coastalcasa.Models.Landlord;
 @Mapper
 public interface LandlordMapper {
     
-    @Select("select * from landlords")
+    @Select("select * from landlord")
     List<Landlord> findAll();
 
     @Insert("insert into landlords(email,password) values(#{email},#{password})")
