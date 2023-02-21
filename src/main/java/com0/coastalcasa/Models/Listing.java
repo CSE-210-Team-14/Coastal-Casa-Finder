@@ -13,7 +13,7 @@ public class Listing {
     private int num_bathrooms;
     private int num_bedrooms;
     private String amenities;
-    private List<Applicant> applicants;
+
     
     public int getId() {
         return id;
@@ -68,14 +68,7 @@ public class Listing {
     }
     public void setAmenities(String amenities) {
         this.amenities = amenities;
-    }
-    public List<Applicant> getApplicants() {
-        return applicants;
-    }
-    public void setApplicants(List<Applicant> applicants) {
-        this.applicants = applicants;
-    }
-        
+    }    
     
 }
     

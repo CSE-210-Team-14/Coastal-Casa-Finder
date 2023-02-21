@@ -1,5 +1,6 @@
 package com0.coastalcasa.Controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,8 +8,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -52,6 +55,23 @@ public class APIController {
 		landlordMapper.insert(landlord);
 	}
 
+	@GetMapping("/listings")
+	public ResponseEntity<List<ListingResponse>> getLandlordListings(@RequestParam String landlord_email) {
+		try {
+			List<Listing> listings = listingMapper.getListingsByLandlordEmail(landlord_email);
+			List<ListingResponse> listingsWithImages = new ArrayList<>();
+			for (Listing listing : listings) {
+				List<ListingImage> imagesData = listingImageMapper.findByListingId(listing.getId());
+				ListingResponse listingWithImage = new ListingResponse(listing, imagesData);
+				listingsWithImages.add(listingWithImage);
+			}
+			return ResponseEntity.ok(listingsWithImages);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+
 	@GetMapping("/alllistings")
 	public List<ListingResponse> getListings() {
 		List<Listing> listings = listingMapper.findAll();
@@ -60,9 +80,7 @@ public class APIController {
 		for (Listing listing : listings) {
 		System.out.println("Here"+listing.getLandlord_email());
 		List<ListingImage> images = listingImageMapper.findByListingId(listing.getId());
-		for(ListingImage l: images){
-			System.out.println("Here"+l.getImage_data());
-		}
+		
 		ListingResponse response = new ListingResponse(listing, images);
 		responses.add(response);
 		}
@@ -70,56 +88,54 @@ public class APIController {
 		return responses;
 	}
 
-	@PostMapping("/create")
-	public ResponseEntity<?> createListing(@RequestBody CreateListingRequest request) {
-	try {
-		// Create a new listing object
+	@PostMapping(value = "/createlisting", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+	public ResponseEntity<String> createListing(@RequestParam("landlord_email") String landlordEmail,
+			@RequestParam("description") String description, @RequestParam("location") String location,
+			@RequestParam("price") double price, @RequestParam("num_bathrooms") int numBathrooms,
+			@RequestParam("num_bedrooms") int numBedrooms, @RequestParam("amenities") String amenities,
+			@RequestParam("images") List<MultipartFile> listingImages) {
+			
+		System.out.println(landlordEmail);
+		// Create the listing object
 		Listing newListing = new Listing();
-		newListing.setLandlord_email(request.getLandlord_email());
-		newListing.setDescription(request.getDescription());
-		newListing.setLocation(request.getLocation());
-		newListing.setPrice(request.getPrice());
-		newListing.setNum_bathrooms(request.getNum_bedrooms());
-		newListing.setNum_bedrooms(request.getNum_bathrooms());
-		newListing.setAmenities(request.getAmenities());
-		
-		// Insert the new listing into the database using the ListingMapper
+		newListing.setLandlord_email(landlordEmail);
+		newListing.setDescription(description);
+		newListing.setLocation(location);
+		newListing.setPrice(price);
+		newListing.setNum_bathrooms(numBathrooms);
+		newListing.setNum_bedrooms(numBedrooms);
+		newListing.setAmenities(amenities);
+
+		// Save the listing to the database
 		listingMapper.insert(newListing);
+		Listing savedListing = listingMapper.lastListing();
+				
 		
-		// Create new listing images and insert them into the database using the ListingImageMapper
-		for (byte[] imageData : request.getImages()) {
-		ListingImage newImage = new ListingImage();
-		newImage.setListing_id(newListing.getId());
-		newImage.setImage_data(imageData);
-		listingImageMapper.insert(newImage);
+		// Save the images to the database
+		for (MultipartFile listingImage : listingImages) {
+			ListingImage newImage = new ListingImage();
+			newImage.setListing_id(savedListing.getId());
+
+			try {
+				newImage.setImage_data(listingImage.getBytes());
+			} catch (IOException e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving image");
+			}
+
+			listingImageMapper.insert(newImage);
 		}
-		
-		// Return a success response with the new listing ID
-		Map<String, Integer> response = new HashMap<>();
-		response.put("id", newListing.getId());
-		return ResponseEntity.ok(response);
-	} catch (Exception e) {
-		// Return an error response if there's an exception
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-	}
+
+		return ResponseEntity.ok("Listing created successfully");
 	}
 
-	
 	public static class ListingResponse {
-		@JsonProperty
 		private Listing listing;
-		@JsonProperty
-		private List<byte[]> images;
+		private List<ListingImage> images;
 		
 
 		public ListingResponse(Listing listing, List<ListingImage> images) {
 		  this.listing = listing;
-		  
-		  List<byte[]> imageDataList = new ArrayList<>();
-		  for (ListingImage image : images) {
-			imageDataList.add(image.getImage_data());
-		  }
-		  this.images = imageDataList;
+		  this.images = images;
 		}
 
 		public Listing getListing() {
@@ -130,13 +146,14 @@ public class APIController {
 			this.listing = listing;
 		}
 
-		public List<byte[]> getImages() {
+		public List<ListingImage> getImages() {
 			return images;
 		}
 
-		public void setImages(List<byte[]> images) {
+		public void setImages(List<ListingImage> images) {
 			this.images = images;
 		}
+
 		
 	  }
 

@@ -17,7 +17,7 @@ public interface ListingImageMapper {
   @Select("SELECT * FROM listing_image WHERE listing_id = #{listingId}")
   List<ListingImage> findByListingId(Integer listingId);
   
-  @Insert("INSERT INTO listing_image(listing_id, image_data) VALUES (#{listingId}, #{imageData})")
+  @Insert("INSERT INTO listing_image(listing_id, image_data) VALUES (#{listing_id}, #{image_data})")
   @Options(useGeneratedKeys = true, keyProperty = "id")
   int insert(ListingImage listingImage);
 }

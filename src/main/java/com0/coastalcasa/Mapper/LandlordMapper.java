@@ -15,7 +15,7 @@ public interface LandlordMapper {
     @Select("select * from landlord")
     List<Landlord> findAll();
 
-    @Insert("insert into landlords(email,password) values(#{email},#{password})")
+    @Insert("insert into landlord(email,password) values(#{email},#{password})")
     @SelectKey(statement = "select last_insert_id()",keyProperty = "id",
                 before = false, resultType = Integer.class)
     void insert(Landlord landlord);
