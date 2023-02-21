@@ -6,36 +6,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com0.coastalcasa.Mapper.LandlordMapper;
 import com0.coastalcasa.Mapper.ListingImageMapper;
 import com0.coastalcasa.Mapper.ListingMapper;
-import com0.coastalcasa.Models.CreateListingRequest;
 import com0.coastalcasa.Models.Landlord;
 import com0.coastalcasa.Models.Listing;
 import com0.coastalcasa.Models.ListingImage;
 
 @RestController
-public class APIController {
+public class ListingController {
 
-	private LandlordMapper landlordMapper;
 
-	
 	private ListingMapper listingMapper;
 	
 	
 	private ListingImageMapper listingImageMapper;
 
-	public APIController(LandlordMapper llm, ListingMapper lm, ListingImageMapper lim){
-		this.landlordMapper = llm;
+	public ListingController(ListingMapper lm, ListingImageMapper lim){
 		this.listingMapper = lm;
 		this.listingImageMapper = lim;
 	}
@@ -45,15 +39,6 @@ public class APIController {
 		return "Coastal Casa Finder";
 	}
 
-	@GetMapping("/alllandlords")
-	public List<Landlord> getAll(){
-		return landlordMapper.findAll();
-	}
-
-	@PostMapping("/landlordsignup")
-	private void createLandLord(@RequestBody Landlord landlord){
-		landlordMapper.insert(landlord);
-	}
 
 	@GetMapping("/listings")
 	public ResponseEntity<List<ListingResponse>> getLandlordListings(@RequestParam String landlord_email) {
