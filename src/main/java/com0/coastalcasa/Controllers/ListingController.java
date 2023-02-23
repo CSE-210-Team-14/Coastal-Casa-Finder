@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com0.coastalcasa.Utils.ResponseInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,8 @@ import com0.coastalcasa.Models.Listing;
 import com0.coastalcasa.Models.ListingImage;
 
 @RestController
+@RequestMapping("/listings")
 public class ListingController {
-
 
 	private ListingMapper listingMapper;
 	
@@ -34,14 +35,15 @@ public class ListingController {
 		this.listingImageMapper = lim;
 	}
 
-	@GetMapping("/")
-	public String index() {
-		return "Coastal Casa Finder";
+	@GetMapping("/test")
+	public ResponseInfo<String> index() {
+		return ResponseInfo.success();
 	}
 
 
-	@GetMapping("/listings")
-	public ResponseEntity<List<ListingResponse>> getLandlordListings(@RequestParam String landlord_email) {
+	// get all listings by a landlord email
+	@GetMapping("/")
+	public ResponseInfo<List<ListingResponse>> getLandlordListings(@RequestParam String landlord_email) {
 		try {
 			List<Listing> listings = listingMapper.getListingsByLandlordEmail(landlord_email);
 			List<ListingResponse> listingsWithImages = new ArrayList<>();
@@ -50,31 +52,32 @@ public class ListingController {
 				ListingResponse listingWithImage = new ListingResponse(listing, imagesData);
 				listingsWithImages.add(listingWithImage);
 			}
-			return ResponseEntity.ok(listingsWithImages);
+			return ResponseInfo.success(listingsWithImages);
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			return ResponseInfo.fail(e.getMessage());
 		}
 	}
 
 
+	// get all listings in database
 	@GetMapping("/alllistings")
-	public List<ListingResponse> getListings() {
+	public ResponseInfo<List<ListingResponse>> getListings() {
 		List<Listing> listings = listingMapper.findAll();
 		List<ListingResponse> responses = new ArrayList<>();
 		
 		for (Listing listing : listings) {
-		System.out.println("Here"+listing.getLandlord_email());
-		List<ListingImage> images = listingImageMapper.findByListingId(listing.getId());
-		
-		ListingResponse response = new ListingResponse(listing, images);
-		responses.add(response);
+			System.out.println("Here"+listing.getLandlord_email());
+			List<ListingImage> images = listingImageMapper.findByListingId(listing.getId());
+
+			ListingResponse response = new ListingResponse(listing, images);
+			responses.add(response);
 		}
 		
-		return responses;
+		return ResponseInfo.success(responses);
 	}
 
 	@PostMapping(value = "/createlisting", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-	public ResponseEntity<String> createListing(@RequestParam("landlord_email") String landlordEmail,
+	public ResponseInfo<String> createListing(@RequestParam("landlord_email") String landlordEmail,
 			@RequestParam("description") String description, @RequestParam("location") String location,
 			@RequestParam("price") double price, @RequestParam("num_bathrooms") int numBathrooms,
 			@RequestParam("num_bedrooms") int numBedrooms, @RequestParam("amenities") String amenities,
@@ -104,13 +107,13 @@ public class ListingController {
 			try {
 				newImage.setImage_data(listingImage.getBytes());
 			} catch (IOException e) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving image");
+				return ResponseInfo.fail("Error saving image");
 			}
 
 			listingImageMapper.insert(newImage);
 		}
 
-		return ResponseEntity.ok("Listing created successfully");
+		return ResponseInfo.success("Listing created successfully");
 	}
 
 	public static class ListingResponse {
@@ -139,7 +142,6 @@ public class ListingController {
 			this.images = images;
 		}
 
-		
 	  }
 
 }
