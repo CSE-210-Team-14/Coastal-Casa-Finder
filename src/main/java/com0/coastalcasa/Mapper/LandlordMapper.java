@@ -18,4 +18,7 @@ public interface LandlordMapper {
     @Insert("INSERT IGNORE INTO landlord(email,password) VALUES (#{email},#{password})")
     int insert(Landlord landlord);
 
+    @Select("select * from landlord where email=#{email}")
+    List<Landlord> findLandLordByEmail(Landlord landlord);
+
 }
