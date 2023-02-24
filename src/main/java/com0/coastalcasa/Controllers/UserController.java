@@ -1,46 +1,52 @@
 package com0.coastalcasa.Controllers;
 
 import com0.coastalcasa.Mapper.LandlordMapper;
-import com0.coastalcasa.Mapper.ListingImageMapper;
-import com0.coastalcasa.Mapper.ListingMapper;
 import com0.coastalcasa.Models.Landlord;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com0.coastalcasa.Services.UserService;
+import com0.coastalcasa.Utils.ResponseInfo;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
 
 
 @RestController
+@RequestMapping("/landlord")
 public class UserController {
 
-    public UserController(LandlordMapper llm){
+    private UserService userService;
+
+    public UserController(LandlordMapper llm, UserService userService){
         this.landlordMapper = llm;
+        this.userService = userService;
     }
 
     private LandlordMapper landlordMapper;
 
-    @GetMapping("/alllandlords")
-    public List<Landlord> getAll(){
+    @GetMapping("/all")
+    public ResponseInfo<List<Landlord>> getAll(){
         List<Landlord> all = landlordMapper.findAll();
-        return all;
+        return ResponseInfo.success(all);
     }
 
-    @PostMapping("/landlordsignup")
-    private ResponseEntity<?> createLandLord(@RequestBody Landlord landlord){
-        int result = landlordMapper.insert(landlord);
-        Map<String, Object> response = new HashMap<>();
-        if (result == 1) {
-            response.put("success", "true");
+    @PostMapping("/signup")
+    private ResponseInfo<String> createLandLord(HttpServletResponse res, @RequestBody Landlord landlord){
+        Boolean result = userService.signup(res, landlord);
+        if (result == true) {
+            return ResponseInfo.success("successful");
         } else {
-            response.put("success", "false");
+            return ResponseInfo.fail("failed");
         }
-        return ResponseEntity.ok(response);
+    }
 
+    @PostMapping("/signin")
+    public ResponseInfo<String> login(HttpServletResponse response, @RequestBody Landlord landlord) {
+        Boolean loginResult = userService.login(response, landlord);
+        if (loginResult) {
+            return ResponseInfo.success();
+        } else {
+            return ResponseInfo.fail();
+        }
     }
 
 }
