@@ -21,6 +21,7 @@ import com0.coastalcasa.Models.Landlord;
 import com0.coastalcasa.Models.Listing;
 import com0.coastalcasa.Models.ListingImage;
 
+
 @RestController
 @RequestMapping("/listings")
 public class ListingController {
