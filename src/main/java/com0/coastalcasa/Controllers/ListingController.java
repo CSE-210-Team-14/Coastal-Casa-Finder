@@ -31,7 +31,7 @@ public class ListingController {
 		this.listingImageMapper = lim;
 	}
 
-	@ApiOperation(value="ResponseInfo Index", notes="Return ResponseInfo.success().")
+	@ApiOperation(value="ResponseInfo Index", notes="Return ResponseInfo.success(). NOTE: This endpoint requires the request headers to contain the JWT token.")
 	@GetMapping("/test")
 	public ResponseInfo<String> index() {
 		return ResponseInfo.success();
@@ -75,7 +75,7 @@ public class ListingController {
 		return ResponseInfo.success(responses);
 	}
 
-	@ApiOperation(value="Create listing", notes="Create a listing with the required parameters.")
+	@ApiOperation(value="Create listing", notes="Create a listing with the required parameters. NOTE: This endpoint requires the request headers to contain the JWT token.")
 	@PostMapping(value = "/createlisting", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
 	public ResponseInfo<String> createListing(@RequestParam("landlord_email") String landlordEmail,
 			@RequestParam("description") String description, @RequestParam("location") String location,
