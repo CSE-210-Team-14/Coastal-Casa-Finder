@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ResponseInfo<T> {
 
-    protected int code;
+    protected int status;
 
     protected String message;
 
@@ -28,30 +28,30 @@ public class ResponseInfo<T> {
     }
 
     public ResponseInfo() {
-        this.code = ResponseCodeEnums.SUCCESS.getCode();
+        this.status = ResponseCodeEnums.SUCCESS.getCode();
         this.message = ResponseCodeEnums.SUCCESS.getMessage();
     }
 
     public ResponseInfo(ResponseCodeEnums statusEnums) {
-        this.code = statusEnums.getCode();
+        this.status = statusEnums.getCode();
         this.message = statusEnums.getMessage();
     }
 
-    public ResponseInfo(int code, String msg) {
-        this.code = code;
+    public ResponseInfo(int status, String msg) {
+        this.status = status;
         this.message = msg;
     }
 
     public ResponseInfo(T data) {
         this.data = data;
-        this.code = ResponseCodeEnums.SUCCESS.getCode();
+        this.status = ResponseCodeEnums.SUCCESS.getCode();
         this.message = ResponseCodeEnums.SUCCESS.getMessage();
     }
 
 
     public ResponseInfo(T data, String msg) {
         this.data = data;
-        this.code = ResponseCodeEnums.SUCCESS.getCode();
+        this.status = ResponseCodeEnums.SUCCESS.getCode();
         this.message = msg;
     }
 
