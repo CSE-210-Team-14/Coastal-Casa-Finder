@@ -52,4 +52,5 @@ jobs:
           docker stop coastal_casa_finder
           docker rm coastal_casa_finder
           docker run -d -e db_pwd=${{ secrets.SERVER_DB_PASSWORD }} -p 8080:8080 --name coastal_casa_finder ${{ secrets.DOCKER_USERNAME }}/coastal_casa_finder
+          docker image prune -a -f
           echo "All commands are done"
