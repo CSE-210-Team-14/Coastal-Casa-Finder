@@ -13,7 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 
 @Api(tags="ListingController")
@@ -45,6 +47,7 @@ public class ListingController {
 		try {
 			List<Listing> listings = listingMapper.getListingsByLandlordEmail(landlord_email);
 			List<ListingResponse> listingsWithImages = new ArrayList<>();
+			
 			for (Listing listing : listings) {
 				List<ListingImage> imagesData = listingImageMapper.findByListingId(listing.getId());
 				ListingResponse listingWithImage = new ListingResponse(listing, imagesData);
@@ -75,6 +78,55 @@ public class ListingController {
 		return ResponseInfo.success(responses);
 	}
 
+	// get all listings in database
+	@ApiOperation(value="Search Listings", notes="Search Listings with required parameters")
+	@GetMapping("/search")
+	public ResponseInfo<List<ListingResponse>> searchListings(@RequestParam Map<String, String> requestParams) {
+		System.out.println(requestParams);
+		double price = -1.0;
+		int numBath = -1;
+		int numBed = -1;
+		String location = null;
+		List<String> amenities = new ArrayList<>();
+		List<ListingResponse> responses = new ArrayList<>();
+		List<Listing> listings = new ArrayList<>();
+
+		if(requestParams.get("price")!=null){
+			price = Double.parseDouble(requestParams.get("price"));
+		}
+		if(requestParams.get("num_bathrooms")!=null){
+			numBath = Integer.parseInt(requestParams.get("num_bathrooms"));
+		}
+		if(requestParams.get("num_bedrooms")!=null){
+			numBed = Integer.parseInt(requestParams.get("num_bedrooms"));
+		}
+		if(requestParams.get("location")!=null){
+			location = "%"+requestParams.get("location")+"%";
+		}
+		if(requestParams.get("amenities")!=null){
+			amenities = new ArrayList<>(Arrays.asList(requestParams.get("amenities").split(",")));
+		}
+		if(amenities.size() != 0){
+			for (String a : amenities){
+				listings.addAll(listingMapper.searchListings(requestParams.get("landlord_email"),requestParams.get("description"),location,price,numBath,numBed,"%"+a+"%"));
+			}
+		}
+		else{
+			listings.addAll(listingMapper.searchListings(requestParams.get("landlord_email"),requestParams.get("description"),location,price,numBath,numBed,null));
+		}
+		 
+		System.out.println(listings);
+		for (Listing listing : listings) {
+			System.out.println("Here"+listing.getLandlord_email());
+			List<ListingImage> images = listingImageMapper.findByListingId(listing.getId());
+			ListingResponse response = new ListingResponse(listing, images);
+			responses.add(response);
+		}
+		
+		return ResponseInfo.success(responses);
+
+	}
+
 	@ApiOperation(value="Create listing", notes="Create a listing with the required parameters. NOTE: This endpoint requires the request headers to contain the JWT token.")
 	@PostMapping(value = "/createlisting", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
 	public ResponseInfo<String> createListing(@RequestParam("landlord_email") String landlordEmail,
@@ -83,7 +135,6 @@ public class ListingController {
 			@RequestParam("num_bedrooms") int numBedrooms, @RequestParam("amenities") String amenities,
 			@RequestParam("images") List<MultipartFile> listingImages) {
 			
-		System.out.println(landlordEmail);
 		// Create the listing object
 		Listing newListing = new Listing();
 		newListing.setLandlord_email(landlordEmail);
