@@ -3,6 +3,9 @@
 ## Required Environment
 JDK 1.8 (JAVA 8) and Maven
 
+## Documentation
+After running the application, you can find the documentation here: [SwaggerUi](http://localhost:8080/swagger-ui.html#/)
+
 ## Steps
 
 1. change spring.profiles.active=prod to spring.profiles.active=dev in application.properties file, and DO NOT commit this file. 
