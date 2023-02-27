@@ -25,16 +25,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns("http://localhost:*")
-                .allowedOriginPatterns("http://18.196.64.140:*")
-                .allowedOriginPatterns("http://172.31.17.218:*")
+                .allowedOriginPatterns("*")
+//                .allowedOriginPatterns("http://localhost:*")
+//                .allowedOriginPatterns("http://18.196.64.140:*")
+//                .allowedOriginPatterns("http://172.31.17.218:*")
                 .allowedHeaders("*")
                 .allowedMethods("*")
-                .exposedHeaders("access-control-allow-headers",
-                        "access-control-allow-methods",
-                        "access-control-allow-origin",
-                        "access-control-max-age",
-                        "X-Frame-Options")
+//                .exposedHeaders("access-control-allow-headers",
+//                        "access-control-allow-methods",
+//                        "access-control-allow-origin",
+//                        "access-control-max-age",
+//                        "X-Frame-Options")
                 .allowCredentials(true)
                 .maxAge(10000);
     }
