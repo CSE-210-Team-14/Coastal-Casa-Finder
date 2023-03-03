@@ -18,3 +18,12 @@ jobs:
 
     - name: Build with Maven
       run: mvn --batch-mode --update-snapshots package
+
+    - name: Send Slack Workflow Result
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_CHANNEL: workflow-results
+        SLACK_COLOR: ${{ job.status }}
+        SLACK_ICON: https://github.com/rtCamp.png?size=48
+        SLACK_USERNAME: Github Bot
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
