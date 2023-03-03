@@ -54,3 +54,12 @@ jobs:
           docker run -d -e db_pwd=${{ secrets.SERVER_DB_PASSWORD }} -p 8080:8080 --name coastal_casa_finder ${{ secrets.DOCKER_USERNAME }}/coastal_casa_finder
           docker image prune -a -f
           echo "All commands are done"
+
+    - name: Send Slack Workflow Result
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_CHANNEL: workflow-results
+        SLACK_COLOR: ${{ job.status }}
+        SLACK_ICON: https://github.com/rtCamp.png?size=48
+        SLACK_USERNAME: Github Bot
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
