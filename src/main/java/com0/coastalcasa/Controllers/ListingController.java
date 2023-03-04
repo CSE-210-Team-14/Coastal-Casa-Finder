@@ -42,8 +42,8 @@ public class ListingController {
 
 	// get all listings by a landlord email
 	@ApiOperation(value="Get landlord listings", notes="Get all listings of a landlord by the landlord's email.")
-	@GetMapping("/")
-	public ResponseInfo<List<ListingResponse>> getLandlordListings(@RequestParam String landlord_email) {
+	@GetMapping("/{email}")
+	public ResponseInfo<List<ListingResponse>> getLandlordListings(@PathVariable("email") String landlord_email) {
 		try {
 			List<Listing> listings = listingMapper.getListingsByLandlordEmail(landlord_email);
 			List<ListingResponse> listingsWithImages = new ArrayList<>();
@@ -203,7 +203,7 @@ public class ListingController {
 
 		return ResponseInfo.success("Listing created successfully");
 	}
-
+	@ApiOperation(value = "Delete", notes = "Delete listing by listing id. NOTE: This endpoint requires the request headers to contain the JWT token.")
 	@DeleteMapping("/delete/{id}")
 	public ResponseInfo<String> deleteListing(@PathVariable Integer id) {
 		

@@ -87,6 +87,7 @@ public class ApplicantController {
 
 
     // Delete an applicant
+    @ApiOperation(value="Post", notes="Delete Application by ID. NOTE: This should be called when the user approves or denies an application")
     @DeleteMapping("/delete/{id}")
     public ResponseInfo<String> deleteApplicant(@PathVariable(value = "id") Integer id) {
         Applicant applicant = applicantMapper.findById(id);
