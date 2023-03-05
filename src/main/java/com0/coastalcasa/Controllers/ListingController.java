@@ -42,8 +42,8 @@ public class ListingController {
 
 	// get all listings by a landlord email
 	@ApiOperation(value="Get landlord listings", notes="Get all listings of a landlord by the landlord's email.")
-	@GetMapping("/")
-	public ResponseInfo<List<ListingResponse>> getLandlordListings(@RequestParam String landlord_email) {
+	@GetMapping("/{email}")
+	public ResponseInfo<List<ListingResponse>> getLandlordListings(@PathVariable("email") String landlord_email) {
 		try {
 			List<Listing> listings = listingMapper.getListingsByLandlordEmail(landlord_email);
 			List<ListingResponse> listingsWithImages = new ArrayList<>();
@@ -126,6 +126,43 @@ public class ListingController {
 		return ResponseInfo.success(responses);
 
 	}
+	@ApiOperation(value="Update Listing", notes="Create a listing with the required parameters. NOTE: This endpoint requires the request headers to contain the JWT token.")
+	@PutMapping(value = "/update/{id}",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+	public ResponseInfo<String> updateListing(@PathVariable("id") int id, @RequestParam("landlord_email") String landlordEmail,
+	@RequestParam("description") String description, @RequestParam("location") String location,
+	@RequestParam("price") double price, @RequestParam("num_bathrooms") int numBathrooms,
+	@RequestParam("num_bedrooms") int numBedrooms, @RequestParam("amenities") String amenities,
+	@RequestParam("images") List<MultipartFile> listingImages) {
+
+		Listing existingListing = listingMapper.findById(id);
+
+		existingListing.setLandlord_email(landlordEmail);
+		existingListing.setDescription(description);
+		existingListing.setLocation(location);
+		existingListing.setPrice(price);
+		existingListing.setNum_bathrooms(numBathrooms);
+		existingListing.setNum_bedrooms(numBedrooms);
+		existingListing.setAmenities(amenities);
+
+		listingMapper.updateListing(existingListing);
+		
+
+		for (MultipartFile listingImage : listingImages) {
+			ListingImage newImage = new ListingImage();
+			newImage.setListing_id(existingListing.getId());
+
+			try {
+				newImage.setImage_data(listingImage.getBytes());
+			} catch (IOException e) {
+				return ResponseInfo.fail("Error saving image");
+			}
+
+			listingImageMapper.insert(newImage);
+		}
+
+		return ResponseInfo.success("Listing updated successfully");
+	}
+
 
 	@ApiOperation(value="Create listing", notes="Create a listing with the required parameters. NOTE: This endpoint requires the request headers to contain the JWT token.")
 	@PostMapping(value = "/createlisting", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
@@ -165,6 +202,14 @@ public class ListingController {
 		}
 
 		return ResponseInfo.success("Listing created successfully");
+	}
+	@ApiOperation(value = "Delete", notes = "Delete listing by listing id. NOTE: This endpoint requires the request headers to contain the JWT token.")
+	@DeleteMapping("/delete/{id}")
+	public ResponseInfo<String> deleteListing(@PathVariable Integer id) {
+		
+		listingMapper.deleteListing(id);
+		listingImageMapper.deleteListing(id);
+		return ResponseInfo.success("Listing Deleted");
 	}
 
 	public static class ListingResponse {

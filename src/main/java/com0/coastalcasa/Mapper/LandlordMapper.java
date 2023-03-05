@@ -21,4 +21,7 @@ public interface LandlordMapper {
     @Select("select * from landlord where email=#{email}")
     List<Landlord> findLandLordByEmail(Landlord landlord);
 
+    @Select("select * from landlord where id=#{id}")
+    Landlord findById(int id);
+
 }
