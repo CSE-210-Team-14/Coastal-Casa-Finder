@@ -3,7 +3,6 @@ package com0.coastalcasa.Models;
 
 public class Landlord{
     private String email;
-
     private String password;
 
     public String getEmail(){

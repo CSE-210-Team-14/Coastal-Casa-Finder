@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Listing {
     private int id;
+    private String name;
     private String landlord_email;
     private String description;
     private String location;
@@ -14,7 +15,12 @@ public class Listing {
     private int num_bedrooms;
     private String amenities;
 
-    
+    public String getName(){
+        return name;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
     public int getId() {
         return id;
     }
