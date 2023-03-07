@@ -22,6 +22,7 @@ import com0.coastalcasa.Mapper.ListingMapper;
 import com0.coastalcasa.Models.Applicant;
 import com0.coastalcasa.Models.Landlord;
 import com0.coastalcasa.Models.Listing;
+import com0.coastalcasa.Services.ApplicantService;
 import com0.coastalcasa.Utils.ResponseInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,72 +32,63 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/applicants")
 public class ApplicantController {
 
-    private ListingMapper listingMapper;
-	private ListingImageMapper listingImageMapper;
-    private ApplicantMapper applicantMapper;
-    private LandlordMapper landlordMapper;
+    private ApplicantService as;
 
-    public ApplicantController(ListingMapper lm, ListingImageMapper lim, ApplicantMapper am,LandlordMapper llm){
-		this.listingMapper = lm;
-		this.listingImageMapper = lim;
-        this.applicantMapper = am;
-        this.landlordMapper = llm;
+    public ApplicantController(ApplicantService as){
+		this.as = as;
 	}
 
     // Get all applicants
     @ApiOperation(value="Get", notes="Gets All Applications in the database")
     @GetMapping("/all")
     public ResponseInfo<List<Applicant>> getAllApplicants() {
-        return ResponseInfo.success(applicantMapper.findAll());
+        try{
+            List<Applicant> res = as.getAllApplicants();
+            return ResponseInfo.success(res);
+        }catch(Exception e){
+            return ResponseInfo.fail("Fail to retrieve all");
+        }
     }
 
     // Get applicants by Landlord ID
     @ApiOperation(value="Get ", notes="Gets All Applications by landlord ID")
     @GetMapping("get/{email}")
     public ResponseInfo<List<Applicant>> getApplicantsByEmail(@PathVariable(value = "email") String email) {
-        List<Listing> listings = listingMapper.getListingsByLandlordEmail(email);
-        List<Applicant> applicants = new ArrayList<>();
-
-        for (Listing listing : listings){
-            applicants.addAll(applicantMapper.findByListingId(listing.getId()));
+        try{
+            List<Applicant> res = as.getApplicantsByEmail(email);
+            return ResponseInfo.success(res);
+        }catch(Exception e){
+            return ResponseInfo.fail("Fail to get all email");
         }
-        
-        return ResponseInfo.success(applicants);
     }
 
     // Create a new applicant
     @ApiOperation(value="Post", notes="Create Applicants by ID")
     @PostMapping("/create")
-    public ResponseInfo<Applicant> createApplicant(@RequestParam("listingId") int listingId,
+    public ResponseInfo createApplicant(@RequestParam("listingId") int listingId,
     @RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName,
     @RequestParam("email") String email,@RequestParam("message") String message,
     @RequestParam("moveInDate") String moveInDateRange) {
-        Applicant applicant = new Applicant();
-        System.out.println(firstName);
-        applicant.setListing_id(listingId);
-        applicant.setFirst_name(firstName);
-        applicant.setLast_name(lastName);
-        applicant.setEmail(email);
-        applicant.setMessage(message);
-        applicant.setMove_in_date_range(moveInDateRange);
-
-        applicantMapper.insert(applicant);
-
-        return ResponseInfo.success(applicant);
+        
+        boolean res = as.createApplicant(listingId, firstName, lastName, email, message, moveInDateRange);
+        if (res){
+            return ResponseInfo.success("Created");
+        }
+        return ResponseInfo.fail("Failed to Create");
+    
+        
     }
 
 
     // Delete an applicant
-    @ApiOperation(value="Post", notes="Delete Application by ID. NOTE: This should be called when the user approves or denies an application")
+    @ApiOperation(value="Post", notes="Delete Application by ID. NOTE: This should be called when the user approves or denies an application REQUIRES JWT TOKEN")
     @DeleteMapping("/delete/{id}")
     public ResponseInfo<String> deleteApplicant(@PathVariable(value = "id") Integer id) {
-        Applicant applicant = applicantMapper.findById(id);
-        if (applicant == null) {
-            return ResponseInfo.fail();
+        boolean res = as.deleteApplicant(id);
+        if(res){
+            return ResponseInfo.success("Deleted");
         }
-
-        applicantMapper.delete(id);
-        return ResponseInfo.success("Deleted");
+        return ResponseInfo.fail("Failed to delete");
     }
 
 }

@@ -20,6 +20,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/listings/test")
                 .addPathPatterns("/listings/update/**")
                 .addPathPatterns("/listings/delete/**")
+                .addPathPatterns("/applicants/delete/**")
                 .excludePathPatterns("/landlord/**")
                 .excludePathPatterns("/landlord/**");
     }

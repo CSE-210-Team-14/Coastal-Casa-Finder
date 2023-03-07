@@ -1,0 +1,9 @@
+2023-03-06 17:46:56.207  INFO 33858 --- [main] c.c.CoastalCasaFinderApplication         : Starting CoastalCasaFinderApplication using Java 19.0.2 on jasons-mbp.lan with PID 33858 (/Users/jasonzuang/Desktop/School/210/Coastal-Casa-Finder/target/classes started by jasonzuang in /Users/jasonzuang/Desktop/School/210/Coastal-Casa-Finder)
+2023-03-06 17:46:56.208  INFO 33858 --- [main] c.c.CoastalCasaFinderApplication         : The following 1 profile is active: "prod"
+2023-03-06 17:46:56.709  INFO 33858 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-06 17:46:56.709  INFO 33858 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
+2023-03-06 17:46:56.752  INFO 33858 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-06 17:46:57.112  INFO 33858 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-03-06 17:46:57.120  INFO 33858 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-03-06 17:46:57.123  INFO 33858 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-03-06 17:46:57.203  INFO 33858 --- [main] c.c.CoastalCasaFinderApplication         : Started CoastalCasaFinderApplication in 1.181 seconds (JVM running for 1.325)
