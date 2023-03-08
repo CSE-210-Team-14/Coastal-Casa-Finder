@@ -45,7 +45,7 @@ public interface ListingMapper {
             "<if test='name != null'> AND name = #{name} </if>",
             "<if test='description != null'> AND description = #{description} </if>" ,
             "<if test='location != null'> AND location LIKE #{location} </if>" ,
-            "<if test='price != -1.0'> AND price = #{price} </if>" ,
+            "<if test='price != -1.0'> AND price <= #{price} </if>" ,
             "<if test='num_bathrooms != -1'> AND num_bathrooms = #{num_bathrooms} </if>" ,
             "<if test='num_bedrooms != -1'> AND num_bedrooms = #{num_bedrooms} </if>" ,
             "<if test='amenities != null'> AND amenities LIKE #{amenities} </if>" ,
