@@ -32,9 +32,10 @@ public class UserController {
         return ResponseInfo.success(all);
     }
 
-    @ApiOperation(value="Create a landlord user", notes="Create a landlord object: success if landlord has not been created before, else fail. NOTE: If the request is successful, JWT token will be put in the response header.")
+    @ApiOperation(value="Create a landlord user", notes="Create a landlord object: success if landlord has not been created before, else fail. NOTE: If the request is successful, JWT token will be put in the response body.")
     @PostMapping("/signup")
     public ResponseInfo<String> createLandLord(HttpServletResponse res, @RequestBody Landlord landlord){
+
         String token = userService.signup(res, landlord);
         if (token != null) {
             return ResponseInfo.success(token);
@@ -43,7 +44,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value="Landlord user login", notes="Check if the landlord user login information is correct. NOTE: If the request is successful, JWT token will be put in the response header.")
+    @ApiOperation(value="Landlord user login", notes="Check if the landlord user login information is correct. NOTE: If the request is successful, JWT token will be put in the response body.")
     @PostMapping("/signin")
     public ResponseInfo<String> login(HttpServletResponse response, @RequestBody Landlord landlord) {
         String token = userService.login(response, landlord);
