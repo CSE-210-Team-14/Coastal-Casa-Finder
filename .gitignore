@@ -33,5 +33,5 @@ build/
 .vscode/
 
 #Prop
-application.properties
+!**/src/main/resources/application.properties
 .DS_Store
