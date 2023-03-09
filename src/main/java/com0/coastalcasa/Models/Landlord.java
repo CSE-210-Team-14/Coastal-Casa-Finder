@@ -5,6 +5,10 @@ public class Landlord{
     private String email;
     private String password;
 
+    public Landlord(String string, String string2) {
+        this.email = string;
+        this.password = string2;
+    }
     public String getEmail(){
         return email;
     }

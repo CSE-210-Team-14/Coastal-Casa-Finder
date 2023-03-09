@@ -1,9 +1,47 @@
-2023-03-06 17:46:56.207  INFO 33858 --- [main] c.c.CoastalCasaFinderApplication         : Starting CoastalCasaFinderApplication using Java 19.0.2 on jasons-mbp.lan with PID 33858 (/Users/jasonzuang/Desktop/School/210/Coastal-Casa-Finder/target/classes started by jasonzuang in /Users/jasonzuang/Desktop/School/210/Coastal-Casa-Finder)
-2023-03-06 17:46:56.208  INFO 33858 --- [main] c.c.CoastalCasaFinderApplication         : The following 1 profile is active: "prod"
-2023-03-06 17:46:56.709  INFO 33858 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2023-03-06 17:46:56.709  INFO 33858 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
-2023-03-06 17:46:56.752  INFO 33858 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2023-03-06 17:46:57.112  INFO 33858 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2023-03-06 17:46:57.120  INFO 33858 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2023-03-06 17:46:57.123  INFO 33858 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2023-03-06 17:46:57.203  INFO 33858 --- [main] c.c.CoastalCasaFinderApplication         : Started CoastalCasaFinderApplication in 1.181 seconds (JVM running for 1.325)
+2023-03-09 11:45:08.245  INFO 19420 --- [main] c.c.CoastalCasaFinderApplication         : Starting CoastalCasaFinderApplication using Java 19.0.2 on jasons-mbp.lan with PID 19420 (/Users/jasonzuang/Desktop/School/210/Coastal-Casa-Finder/target/classes started by jasonzuang in /Users/jasonzuang/Desktop/School/210/Coastal-Casa-Finder)
+2023-03-09 11:45:08.248  INFO 19420 --- [main] c.c.CoastalCasaFinderApplication         : The following 1 profile is active: "dev"
+2023-03-09 11:45:08.752  INFO 19420 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-09 11:45:08.752  INFO 19420 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
+2023-03-09 11:45:08.797  INFO 19420 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-09 11:45:09.182  INFO 19420 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-03-09 11:45:09.190  INFO 19420 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-03-09 11:45:09.193  INFO 19420 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-03-09 11:45:09.268  INFO 19420 --- [main] c.c.CoastalCasaFinderApplication         : Started CoastalCasaFinderApplication in 1.204 seconds (JVM running for 1.353)
+2023-03-09 12:18:22.782  INFO 19864 --- [main] c.c.CoastalCasaFinderApplication         : Starting CoastalCasaFinderApplication using Java 19.0.2 on jasons-mbp.lan with PID 19864 (/Users/jasonzuang/Desktop/School/210/Coastal-Casa-Finder/target/classes started by jasonzuang in /Users/jasonzuang/Desktop/School/210/Coastal-Casa-Finder)
+2023-03-09 12:18:22.783  INFO 19864 --- [main] c.c.CoastalCasaFinderApplication         : The following 1 profile is active: "dev"
+2023-03-09 12:18:23.286  INFO 19864 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-09 12:18:23.286  INFO 19864 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
+2023-03-09 12:18:23.328  INFO 19864 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-09 12:18:23.668  INFO 19864 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-03-09 12:18:23.676  INFO 19864 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-03-09 12:18:23.679  INFO 19864 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-03-09 12:18:23.760  INFO 19864 --- [main] c.c.CoastalCasaFinderApplication         : Started CoastalCasaFinderApplication in 1.166 seconds (JVM running for 1.31)
+2023-03-09 12:18:29.919  INFO 19864 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-09 12:18:29.963  INFO 19864 --- [http-nio-8080-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-09 12:18:30.117  INFO 19864 --- [http-nio-8080-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-09 12:19:13.190  INFO 19864 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-03-09 12:19:13.201  INFO 19864 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-03-09 12:33:41.763  INFO 20140 --- [main] c.c.CoastalCasaFinderApplicationTests    : Starting CoastalCasaFinderApplicationTests using Java 19.0.2 on jasons-mbp.lan with PID 20140 (started by jasonzuang in /Users/jasonzuang/Desktop/School/210/Coastal-Casa-Finder)
+2023-03-09 12:33:41.766  INFO 20140 --- [main] c.c.CoastalCasaFinderApplicationTests    : The following 1 profile is active: "dev"
+2023-03-09 12:33:42.862  INFO 20140 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-03-09 12:33:42.872  INFO 20140 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-03-09 12:33:42.875  INFO 20140 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-03-09 12:33:42.978  INFO 20140 --- [main] c.c.CoastalCasaFinderApplicationTests    : Started CoastalCasaFinderApplicationTests in 1.353 seconds (JVM running for 1.814)
+2023-03-09 12:35:03.073  INFO 20214 --- [main] c.c.CoastalCasaFinderApplicationTests    : Starting CoastalCasaFinderApplicationTests using Java 19.0.2 on jasons-mbp.lan with PID 20214 (started by jasonzuang in /Users/jasonzuang/Desktop/School/210/Coastal-Casa-Finder)
+2023-03-09 12:35:03.074  INFO 20214 --- [main] c.c.CoastalCasaFinderApplicationTests    : The following 1 profile is active: "dev"
+2023-03-09 12:35:04.130  INFO 20214 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-03-09 12:35:04.138  INFO 20214 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-03-09 12:35:04.141  INFO 20214 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-03-09 12:35:04.246  INFO 20214 --- [main] c.c.CoastalCasaFinderApplicationTests    : Started CoastalCasaFinderApplicationTests in 1.306 seconds (JVM running for 1.71)
+2023-03-09 12:40:08.909  INFO 20351 --- [main] c.c.CoastalCasaFinderApplicationTests    : Starting CoastalCasaFinderApplicationTests using Java 19.0.2 on jasons-mbp.lan with PID 20351 (started by jasonzuang in /Users/jasonzuang/Desktop/School/210/Coastal-Casa-Finder)
+2023-03-09 12:40:08.910  INFO 20351 --- [main] c.c.CoastalCasaFinderApplicationTests    : The following 1 profile is active: "dev"
+2023-03-09 12:40:09.937  INFO 20351 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-03-09 12:40:09.948  INFO 20351 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-03-09 12:40:09.951  INFO 20351 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-03-09 12:40:10.057  INFO 20351 --- [main] c.c.CoastalCasaFinderApplicationTests    : Started CoastalCasaFinderApplicationTests in 1.295 seconds (JVM running for 1.711)
+2023-03-09 12:41:06.443  INFO 20413 --- [main] c.c.CoastalCasaFinderApplicationTests    : Starting CoastalCasaFinderApplicationTests using Java 19.0.2 on jasons-mbp.lan with PID 20413 (started by jasonzuang in /Users/jasonzuang/Desktop/School/210/Coastal-Casa-Finder)
+2023-03-09 12:41:06.444  INFO 20413 --- [main] c.c.CoastalCasaFinderApplicationTests    : The following 1 profile is active: "dev"
+2023-03-09 12:41:07.505  INFO 20413 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-03-09 12:41:07.516  INFO 20413 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-03-09 12:41:07.520  INFO 20413 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-03-09 12:41:07.622  INFO 20413 --- [main] c.c.CoastalCasaFinderApplicationTests    : Started CoastalCasaFinderApplicationTests in 1.318 seconds (JVM running for 1.74)

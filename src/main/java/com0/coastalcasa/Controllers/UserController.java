@@ -34,7 +34,7 @@ public class UserController {
 
     @ApiOperation(value="Create a landlord user", notes="Create a landlord object: success if landlord has not been created before, else fail. NOTE: If the request is successful, JWT token will be put in the response header.")
     @PostMapping("/signup")
-    private ResponseInfo<String> createLandLord(HttpServletResponse res, @RequestBody Landlord landlord){
+    public ResponseInfo<String> createLandLord(HttpServletResponse res, @RequestBody Landlord landlord){
         String token = userService.signup(res, landlord);
         if (token != null) {
             return ResponseInfo.success(token);
