@@ -18,7 +18,7 @@ public class UserService {
         this.landlordMapper = landlordMapper;
     }
 
-    public Boolean signup(HttpServletResponse response, Landlord landlord) {
+    public String signup(HttpServletResponse response, Landlord landlord) {
 
         landlord.setPassword(new StrongPasswordEncryptor().encryptPassword(landlord.getPassword()));
 
@@ -26,28 +26,26 @@ public class UserService {
 
         if (result == 1) {
             String token = JWTUtil.sign(landlord);
-            response.setHeader("token", token);
-            return true;
+            return token;
         } else {
-            return false;
+            return null;
         }
 
     }
 
-    public Boolean login(HttpServletResponse response, Landlord landlord) {
+    public String login(HttpServletResponse response, Landlord landlord) {
         List<Landlord> landlords = landlordMapper.findLandLordByEmail(landlord);
         System.out.println(landlords);
         if (landlords.size() != 1) {
-            return false;
+            return null;
         } else {
             Landlord landlordInDB = landlords.get(0);
             if (new StrongPasswordEncryptor().checkPassword(landlord.getPassword(), landlordInDB.getPassword())) {
                 String token = JWTUtil.sign(landlord);
-                response.setHeader("token", token);
                 System.out.println(token);
-                return true;
+                return token;
             } else {
-                return false;
+                return null;
             }
         }
 
