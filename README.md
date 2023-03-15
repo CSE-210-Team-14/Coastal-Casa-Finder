@@ -16,5 +16,6 @@ We use MySQL 5.7 in production.
 Run createDB.sh (under resources/scripts), be sure to change the MySQL server's username and password first. 
 
 ## Project Architecture
+![arch](https://user-images.githubusercontent.com/52941906/225173167-3fe15b51-1d63-4569-aa0f-72b9392b7ec6.png)
 
-![arch flowchart](https://user-images.githubusercontent.com/52941906/223553615-5803f44d-dea9-43ab-823e-2aea17c91062.png)
+
